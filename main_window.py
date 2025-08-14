@@ -1,13 +1,25 @@
 
 from PyQt5.QtWidgets import QMainWindow, QWidget, QFrame, QLabel, QPushButton, QToolButton, QLCDNumber, QSizePolicy, QHBoxLayout, QVBoxLayout
 from PyQt5.QtCore import QSize, pyqtSignal, Qt
+from timer import Timer
 
 class MainWindow(QMainWindow):
+    """
+    Main Window for the pomodoro timer
+    """
     def __init__(self):
+        """
+        Constructs new MainWindow object
+        """
         super().__init__()
+        self.timer = Timer(self)
         self.setup_window()
 
+
     def setup_window(self):
+        """
+        Initializes main window parameters
+        """
         self.resize(190, 120)
         sp = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sp.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
@@ -22,6 +34,9 @@ class MainWindow(QMainWindow):
 
 
     def generate_ui_elements(self):
+        """
+        Generates the main container
+        """
         self.central_widget = QWidget(self)
         self.central_widget_layout = QVBoxLayout(self.central_widget)
 
@@ -30,7 +45,11 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(self.central_widget)
 
+
     def generate_number_widget(self):
+        """
+        Generates the entire number widget
+        """
         self.number_frame = QFrame(self.central_widget)
         sp1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sp1.setHorizontalStretch(0)
@@ -80,6 +99,9 @@ class MainWindow(QMainWindow):
 
 
     def generate_button_widget(self):
+        """
+        Generates the entire button widget
+        """
         self.btn_widget = QWidget(self.central_widget)
 
         self.btn_widget_layout = QHBoxLayout(self.btn_widget)
@@ -109,13 +131,37 @@ class MainWindow(QMainWindow):
 
         self.start_btn.setSizePolicy(sp)
         self.start_btn.setText("Start")
+        self.start_btn.clicked.connect(self.handle_start_btn)
 
         self.options_btn = QToolButton(self.btn_widget)
         self.options_btn.setText("...")
+        self.options_btn.clicked.connect(self.handle_option_btn)
 
         self.btn_widget_layout.addWidget(self.state_label)
         self.btn_widget_layout.addWidget(self.start_btn)
         self.btn_widget_layout.addWidget(self.options_btn)
 
         return self.btn_widget
+    
+
+    def handle_start_btn(self):
+        """
+        Handles the start button being clicked
+        """
+        self.timer.is_running = not self.timer.is_running
+
+        if self.timer.is_running:
+            self.timer.start_timer()
+            self.start_btn.setText("Pause")
+        else:
+            self.timer.pause_timer()
+            self.start_btn.setText("Start")
+        ...
+
+    def handle_option_btn(self):
+        """
+        Handles the option button being clicked
+        """
+        print("Option btn clicked")
+        ...
 

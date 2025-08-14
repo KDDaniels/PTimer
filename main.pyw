@@ -1,7 +1,8 @@
+#!/usr/bin/python3
+
 import sys
 from PyQt5.QtWidgets import QApplication
 from main_window import MainWindow
-from timer import Timer
 
 def run():
     app = QApplication([])
