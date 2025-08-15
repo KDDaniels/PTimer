@@ -2,6 +2,7 @@
 from PyQt5.QtWidgets import QMainWindow, QWidget, QFrame, QLabel, QPushButton, QToolButton, QLCDNumber, QSizePolicy, QHBoxLayout, QVBoxLayout
 from PyQt5.QtCore import QSize, pyqtSignal, Qt
 from timer import Timer
+from options_window import OptionsWindow
 
 class MainWindow(QMainWindow):
     """
@@ -13,7 +14,10 @@ class MainWindow(QMainWindow):
         """
         super().__init__()
         self.timer = Timer(self)
+        self.option_window = OptionsWindow()
         self.setup_window()
+
+        self.option_window.opt_signal.connect(self.handle_options)
 
 
     def setup_window(self):
@@ -21,10 +25,6 @@ class MainWindow(QMainWindow):
         Initializes main window parameters
         """
         self.resize(190, 120)
-        sp = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sp.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
-
-        self.setSizePolicy(sp)
         self.setMinimumSize(QSize(0, 120))
 
         self.setWindowTitle("Pomodoro")
@@ -162,6 +162,16 @@ class MainWindow(QMainWindow):
         """
         Handles the option button being clicked
         """
+        self.option_window.toggle_visibility()
         print("Option btn clicked")
+        
+
+    def handle_options(self, opts):
+        """
+        Processes and handles the options data a bit
+        """
+        args = opts.split(";")
+        print(args)
+        # self.timer.set_options(args)
         ...
 
