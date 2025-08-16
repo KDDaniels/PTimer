@@ -121,7 +121,8 @@ class OptionsWindow(QWidget):
         self.input_frame_layout.addWidget(self.sbreak_opt_widget)
         self.input_frame_layout.addWidget(self.lbreak_opt_widget)
         self.input_frame_layout.addWidget(self.pomodori_opt_widget)
-        self.settings_window_layout.addWidget(self.input_frame)
+
+        return self.input_frame
 
 
     def generate_btns(self):
@@ -131,7 +132,7 @@ class OptionsWindow(QWidget):
 
         self.apply_btns.clicked.connect(self.handle_btns)
 
-        self.settings_window_layout.addWidget(self.apply_btns)
+        return self.apply_btns
 
     def handle_btns(self, data):
         if data.text() == "Apply":
