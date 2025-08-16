@@ -136,7 +136,6 @@ class OptionsWindow(QWidget):
 
     def handle_btns(self, data):
         if data.text() == "Apply":
-            print("applying settings")
             self.opt_signal.emit(f"work:{self.work_opt_input.value()};sbreak:{self.sbreak_opt_input.value()};lbreak:{self.lbreak_opt_input.value()};pomodori:{self.pomodori_opt_input.value()}")
             self.toggle_visibility()
         else:

@@ -163,7 +163,6 @@ class MainWindow(QMainWindow):
         Handles the option button being clicked
         """
         self.option_window.toggle_visibility()
-        print("Option btn clicked")
         
 
     def handle_options(self, opts):
