@@ -58,6 +58,11 @@ class Timer:
     def update_state(self, state : str):
         """
         Updates the State label
+        # Have Breaks listed as Long or Short
+        # Add Pomodori count?
+        # Where to add sound notif?
+        # Custom upload?
+        # https://freesound.org/
 
         Parameters
         ----------
