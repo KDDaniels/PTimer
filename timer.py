@@ -41,15 +41,15 @@ class Timer:
             The minutes to display
         """
         
-        displayMin = time
+        self.displayMin = time
 
-        if passedSeconds == 60:
-            displayMin -= 1
-            return displayMin
-        elif displayMin == 0:
-            break
+        if self.passedSeconds == 60:
+            self.displayMin -= 1
+            return self.displayMin
+        elif self.displayMin == 0:
+            pass
         
-        self.gui.lcd_minute.display(time)
+        self.gui.lcd_minute.display(self.displayMin)
 
 
     def update_seconds(self, time):
