@@ -40,6 +40,15 @@ class Timer:
         time
             The minutes to display
         """
+        
+        displayMin = time
+
+        if passedSeconds == 60:
+            displayMin -= 1
+            return displayMin
+        elif displayMin == 0:
+            break
+        
         self.gui.lcd_minute.display(time)
 
 
