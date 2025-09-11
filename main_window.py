@@ -1,4 +1,5 @@
 
+import os
 from PyQt5.QtWidgets import QMainWindow, QWidget, QFrame, QLabel, QPushButton, QToolButton, QLCDNumber, QSizePolicy, QHBoxLayout, QVBoxLayout
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon
@@ -146,7 +147,7 @@ class MainWindow(QMainWindow):
         return self.btn_widget
     
     def update_icon(self, icon_name : str = "default32.png"):
-        self.setWindowIcon(QIcon(f"./assets/{icon_name}"))
+        self.setWindowIcon(QIcon(os.path.join(os.path.dirname(__file__), f'./assets/{icon_name}')))
         print(f"[INFO] Icon updated to {icon_name}")
     
 

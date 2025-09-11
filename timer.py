@@ -1,18 +1,6 @@
 
 from PyQt5.QtCore import QTimer
 
-"""
-
-functions
-    setup
-    start if not started
-    toggle
-    pause/resume
-
-
-"""
-
-
 class Timer:
     """
     Timer component for a pomodoro timer
@@ -111,6 +99,7 @@ class Timer:
 
             self.current_pomodori = 0
 
+        self.gui.showNormal()
         self.update_state(self.state)
         self.timer.start((self.time_remaining * 60000))
         self.update_time()
