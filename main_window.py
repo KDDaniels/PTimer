@@ -1,6 +1,7 @@
 
 from PyQt5.QtWidgets import QMainWindow, QWidget, QFrame, QLabel, QPushButton, QToolButton, QLCDNumber, QSizePolicy, QHBoxLayout, QVBoxLayout
-from PyQt5.QtCore import QSize, pyqtSignal, Qt
+from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtGui import QIcon
 from timer import Timer
 from options_window import OptionsWindow
 
@@ -16,6 +17,7 @@ class MainWindow(QMainWindow):
         self.timer = Timer(self)
         self.option_window = OptionsWindow()
         self.setup_window()
+        self.update_icon()
 
         self.option_window.opt_signal.connect(self.handle_options)
 
@@ -143,20 +145,22 @@ class MainWindow(QMainWindow):
 
         return self.btn_widget
     
+    def update_icon(self, icon_name : str = "default32.png"):
+        self.setWindowIcon(QIcon(f"./assets/{icon_name}"))
+        print(f"[INFO] Icon updated to {icon_name}")
+    
 
     def handle_start_btn(self):
         """
         Handles the start button being clicked
         """
-        self.timer.is_running = not self.timer.is_running
+        
+        self.timer.pause_resume_timer()
 
         if self.timer.is_running:
-            self.timer.start_timer()
             self.start_btn.setText("Pause")
         else:
-            self.timer.pause_timer()
             self.start_btn.setText("Start")
-        ...
 
     def handle_option_btn(self):
         """
@@ -169,8 +173,14 @@ class MainWindow(QMainWindow):
         """
         Processes and handles the options data a bit
         """
-        args = opts.split(";")
-        print(args)
-        # self.timer.set_options(args)
-        ...
+        opts_split = opts.split(";")
+        args = {}
+        for opt in opts_split:
+            arg = opt.split(":")
+            args[arg[0]] = arg[1]
+
+        self.timer.update_options(work_time=args["work_time"],
+                                  short_break=args["short_break"],
+                                  long_break=args["long_break"],
+                                  pomodori=args["pomodori"])
 
